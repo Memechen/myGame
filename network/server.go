@@ -6,16 +6,15 @@ import (
 )
 
 type Server struct {
-	listener net.Listener
-	address  string
-	network  string
+	listener        net.Listener
+	address         string
+	OnSessionPacket func(packet *SessionPacket)
 }
 
-func NewServer(address, network string) *Server {
+func NewServer(address string) *Server {
 	return &Server{
 		listener: nil,
 		address:  address,
-		network:  network,
 	}
 }
 

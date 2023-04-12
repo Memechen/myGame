@@ -22,7 +22,7 @@ func NewNormalPacker(order binary.ByteOrder) *NormalPacker {
 func (p *NormalPacker) Pack(message *Message) ([]byte, error) {
 	buffer := make([]byte, 8+8+len(message.Data))
 	p.Order.PutUint64(buffer[:8], uint64(len(buffer)))
-	p.Order.PutUint64(buffer[8:16], message.Id)
+	p.Order.PutUint64(buffer[8:16], message.ID)
 	copy(buffer[16:], message.Data)
 	return buffer, nil
 }
@@ -49,7 +49,7 @@ func (p *NormalPacker) UnPack(reader io.Reader) (*Message, error) {
 		return nil, err
 	}
 	m := &Message{
-		Id:   Id,
+		ID:   Id,
 		Data: dataBuffer,
 	}
 	return m, nil

@@ -3,13 +3,16 @@ package network
 import (
 	"encoding/binary"
 	"fmt"
+	"github.com/Memechen/myGame/chat"
 	"net"
 	"time"
 )
 
 type Client struct {
-	Address string
-	packer  *NormalPacker
+	Address   string
+	packer    *NormalPacker
+	ChMsg     chan chat.Msg
+	OnMessage func(message *ClientPacket)
 }
 
 func NewClient(address string) *Client {
@@ -35,7 +38,7 @@ func (c *Client) Write(conn net.Conn) {
 	for {
 		select {
 		case <-tick.C:
-			c.send(conn, &Message{Id: 111, Data: []byte("hello, i am client")})
+			c.send(conn, &Message{ID: 111, Data: []byte("hello, i am client")})
 		}
 	}
 }
@@ -66,7 +69,11 @@ func (c *Client) Read(conn net.Conn) {
 			fmt.Println(err)
 			continue
 		}
-		fmt.Println("resp message Id: ", fmt.Sprint(message.Id))
+		c.OnMessage(&ClientPacket{
+			Msg:  message,
+			Conn: conn,
+		})
+		fmt.Println("resp message ID: ", fmt.Sprint(message.ID))
 		fmt.Println("resp message Data: ", string(message.Data))
 	}
 }
