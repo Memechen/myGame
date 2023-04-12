@@ -46,7 +46,6 @@ func (s *Session) Read() {
 }
 
 func (s *Session) Write() {
-
 	for {
 		select {
 		case msg := <-s.chWrite:

@@ -31,7 +31,7 @@ func (c *Client) Run() {
 }
 
 func (c *Client) Write(conn net.Conn) {
-	tick := time.NewTimer(time.Second)
+	tick := time.NewTicker(time.Second)
 	for {
 		select {
 		case <-tick.C:
@@ -66,7 +66,7 @@ func (c *Client) Read(conn net.Conn) {
 			fmt.Println(err)
 			continue
 		}
-		fmt.Println("resp message Id: ", string(message.Id))
+		fmt.Println("resp message Id: ", fmt.Sprint(message.Id))
 		fmt.Println("resp message Data: ", string(message.Data))
 	}
 }
