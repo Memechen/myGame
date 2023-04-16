@@ -1,13 +1,18 @@
 package client
 
-import "github.com/Memechen/myGame/network"
+import (
+	"fmt"
+	"github.com/Memechen/myGame/network"
+)
 
 type MessageHandler func(packet *network.ClientPacket)
 
 type InputHandler func(param *InputParam)
 
 func (c *Client) Login(param *InputParam) {
-
+	fmt.Println("[client handler Login] print")
+	fmt.Println("[client handler Login] command：", param.Command)
+	fmt.Println("[client handler Login] param：", param.Param)
 }
 
 func (c *Client) OnLoginResp(packet *network.ClientPacket) {

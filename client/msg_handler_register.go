@@ -1,9 +1,11 @@
 package client
 
+import "github.com/Memechen/myGame/network/protocol/gen/messageId"
+
 func (c *Client) MessageHandlerRegister() {
-	c.messageHandlers[111] = c.OnLoginResp
-	c.messageHandlers[222] = c.OnAddFriendResp
-	c.messageHandlers[333] = c.OnDelFriendResp
-	c.messageHandlers[444] = c.OnSendChatMsgResp
+	c.messageHandlers[messageId.MessageId_SCLogin] = c.OnLoginResp
+	c.messageHandlers[messageId.MessageId_SCAddFriend] = c.OnAddFriendResp
+	c.messageHandlers[messageId.MessageId_SCDelFriend] = c.OnDelFriendResp
+	c.messageHandlers[messageId.MessageId_SCSendChatMsg] = c.OnSendChatMsgResp
 
 }

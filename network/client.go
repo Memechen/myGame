@@ -3,7 +3,6 @@ package network
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/Memechen/myGame/chat"
 	"net"
 	"time"
 )
@@ -11,7 +10,7 @@ import (
 type Client struct {
 	Address   string
 	packer    *NormalPacker
-	ChMsg     chan chat.Msg
+	ChMsg     chan *Message
 	OnMessage func(message *ClientPacket)
 }
 

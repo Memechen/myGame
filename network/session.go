@@ -12,7 +12,7 @@ type Session struct {
 	conn           net.Conn
 	IsClose        bool
 	packer         *NormalPacker
-	WriteCh        chan *Message
+	WriteCh        chan *SessionPacket
 	IsPlayerOnline bool
 	MessageHandler func(packet *SessionPacket)
 }
@@ -21,7 +21,7 @@ func NewSession(conn net.Conn) *Session {
 	return &Session{
 		conn:    conn,
 		packer:  NewNormalPacker(binary.BigEndian),
-		WriteCh: make(chan *Message, 1),
+		WriteCh: make(chan *SessionPacket, 1),
 	}
 }
 
@@ -46,10 +46,14 @@ func (s *Session) Read() {
 			Msg:  message,
 			Sess: s,
 		})
-		s.WriteCh <- &Message{
-			ID:   999,
-			Data: []byte("hi client, i am hulk"),
+		s.WriteCh <- &SessionPacket{
+			Msg: &Message{
+				ID:   999,
+				Data: []byte("hi client, i am hulk"),
+			},
+			Sess: s,
 		}
+
 	}
 }
 
@@ -57,7 +61,7 @@ func (s *Session) Write() {
 	for {
 		select {
 		case msg := <-s.WriteCh:
-			s.send(msg)
+			s.send(msg.Msg)
 		}
 	}
 }
