@@ -692,6 +692,8 @@ func (m *CSSendChatMsg) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Category
+
 	if len(errors) > 0 {
 		return CSSendChatMsgMultiError(errors)
 	}
