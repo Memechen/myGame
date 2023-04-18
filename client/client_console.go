@@ -9,7 +9,7 @@ import (
 
 type InputParam struct {
 	Command string
-	Param   string
+	Param   []string
 }
 
 type ClientConsole struct {
@@ -35,7 +35,7 @@ func (c *ClientConsole) Run() {
 		}
 		in := &InputParam{
 			Command: split[0],
-			Param:   split[1],
+			Param:   []string{split[1], split[2]},
 		}
 		c.chInput <- in
 	}

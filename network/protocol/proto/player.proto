@@ -43,3 +43,12 @@ message ChatMessage{
   string Content =1;
   repeated bytes  extra=2;
 }
+
+message CSCreateUser{
+  string Username =1;
+  string Password =2;
+}
+
+message SCCreateUser{
+
+}
