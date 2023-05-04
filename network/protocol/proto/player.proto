@@ -4,7 +4,8 @@ package player;
 option go_package="/player";
 
 message CSLogin{
-  uint64 UId =1;
+  string Username =1;
+  string Password =2;
 }
 
 message SCLogin{

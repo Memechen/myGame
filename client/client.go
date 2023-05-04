@@ -51,8 +51,3 @@ func (c *Client) OnMessage(packet *network.ClientPacket) {
 		handler(packet)
 	}
 }
-
-func (c *Client) GetMessageIdByCmd(command string) int {
-
-	return 0
-}
