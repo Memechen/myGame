@@ -26,7 +26,7 @@ func (p *Player) Run() {
 	for {
 		select {
 		case handlerParam := <-p.HandlerParamCh:
-			if fn, ok := p.handlers[messageId.MessageId(handlerParam.Msg.ID)]; ok {
+			if fn, ok := p.handlers[handlerParam.Msg.ID]; ok {
 				fn(handlerParam)
 			}
 		}

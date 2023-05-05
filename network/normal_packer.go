@@ -3,6 +3,7 @@ package network
 import (
 	"encoding/binary"
 	"fmt"
+	"github.com/Memechen/myGame/network/protocol/gen/messageId"
 	"io"
 	"net"
 	"time"
@@ -22,7 +23,7 @@ func NewNormalPacker(order binary.ByteOrder) *NormalPacker {
 func (p *NormalPacker) Pack(message *Message) ([]byte, error) {
 	buffer := make([]byte, 8+8+len(message.Data))
 	p.Order.PutUint64(buffer[:8], uint64(len(buffer)))
-	p.Order.PutUint64(buffer[8:16], message.ID)
+	p.Order.PutUint64(buffer[8:16], uint64(message.ID))
 	copy(buffer[16:], message.Data)
 	return buffer, nil
 }
@@ -49,7 +50,7 @@ func (p *NormalPacker) UnPack(reader io.Reader) (*Message, error) {
 		return nil, err
 	}
 	m := &Message{
-		ID:   Id,
+		ID:   messageId.MessageId(Id),
 		Data: dataBuffer,
 	}
 	return m, nil

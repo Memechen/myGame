@@ -3,12 +3,13 @@ package world
 import (
 	"github.com/Memechen/myGame/manager"
 	"github.com/Memechen/myGame/network"
+	"github.com/Memechen/myGame/network/protocol/gen/messageId"
 )
 
 type MgrMgr struct {
 	Pm              *manager.PlayerMgr
 	Server          *network.Server
-	Handlers        map[uint64]func(message *network.SessionPacket)
+	Handlers        map[messageId.MessageId]func(message *network.SessionPacket)
 	chSessionPacket chan *network.SessionPacket
 }
 

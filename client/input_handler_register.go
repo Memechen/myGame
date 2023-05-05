@@ -28,7 +28,7 @@ func (c *Client) Transport(id messageId.MessageId, message proto.Message) {
 		return
 	}
 	c.cli.ChMsg <- &network.Message{
-		ID:   uint64(id),
+		ID:   id,
 		Data: bytes,
 	}
 }

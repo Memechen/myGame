@@ -43,11 +43,11 @@ func (c *Client) Run() {
 		}
 	}()
 	go c.console.Run()
-	//go c.cli.Run()
+	go c.cli.Run()
 }
 
 func (c *Client) OnMessage(packet *network.ClientPacket) {
-	if handler, ok := c.messageHandlers[messageId.MessageId(packet.Msg.ID)]; ok {
+	if handler, ok := c.messageHandlers[packet.Msg.ID]; ok {
 		handler(packet)
 	}
 }

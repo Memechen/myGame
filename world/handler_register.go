@@ -1,5 +1,7 @@
 package world
 
+import "github.com/Memechen/myGame/network/protocol/gen/messageId"
+
 func (mm *MgrMgr) HandlerRegister() {
-	mm.Handlers[1] = mm.UserLogin
+	mm.Handlers[messageId.MessageId_CSLogin] = mm.UserLogin
 }

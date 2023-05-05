@@ -1,6 +1,8 @@
 package network
 
+import "github.com/Memechen/myGame/network/protocol/gen/messageId"
+
 type Message struct {
-	ID   uint64
+	ID   messageId.MessageId
 	Data []byte
 }
