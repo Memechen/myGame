@@ -31,5 +31,7 @@ func (mm *MgrMgr) OnSessionPacket(packet *network.SessionPacket) {
 	if handler, ok := mm.Handlers[packet.Msg.ID]; ok {
 		handler(packet)
 	}
-
+	if p := mm.Pm.GetPlayer(packet.Sess.UId); p != nil {
+		p.HandlerParamCh <- packet.Msg
+	}
 }

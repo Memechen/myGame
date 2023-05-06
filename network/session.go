@@ -8,7 +8,7 @@ import (
 )
 
 type Session struct {
-	UId            int64
+	UId            uint64
 	conn           net.Conn
 	IsClose        bool
 	packer         *NormalPacker

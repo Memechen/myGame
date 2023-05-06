@@ -33,16 +33,16 @@ func (mm *MgrMgr) UserLogin(message *network.SessionPacket) {
 	newPlayer.HandlerParamCh = message.Sess.WriteCh
 
 	message.Sess.IsPlayerOnline = true
-
+	mm.Pm.Add(newPlayer)
 	newPlayer.Run()
 }
 
-func (mm MgrMgr) SendMsg(id messageId.MessageId, message proto.Message, session network.Session) {
+func (mm MgrMgr) SendMsg(id messageId.MessageId, message proto.Message, session *network.Session) {
 	bytes, err := proto.Marshal(message)
 	if err != nil {
 		return
 	}
-	rsp := network.Message{
+	rsp := &network.Message{
 		ID:   id,
 		Data: bytes,
 	}
