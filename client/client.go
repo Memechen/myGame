@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"github.com/Memechen/myGame/network"
 	"github.com/Memechen/myGame/network/protocol/gen/messageId"
+	"os"
+	"syscall"
 )
 
 type Client struct {
@@ -50,4 +52,19 @@ func (c *Client) OnMessage(packet *network.ClientPacket) {
 	if handler, ok := c.messageHandlers[packet.Msg.ID]; ok {
 		handler(packet)
 	}
+}
+
+func (c *Client) OnSystemSignal(signal os.Signal) bool {
+	fmt.Printf("[Client] 收到信号 %v \n", signal)
+	tag := true
+	switch signal {
+	case syscall.SIGHUP:
+		// todo 挂起的时候做点事情
+	case syscall.SIGPIPE:
+
+	default:
+		fmt.Println("[Client] 收到信号准备退出...")
+		tag = false
+	}
+	return tag
 }
