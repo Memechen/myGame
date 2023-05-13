@@ -1,8 +1,25 @@
 package main
 
-import "github.com/Memechen/myGame/world"
+import (
+	"github.com/Memechen/myGame/world"
+	"os"
+	"os/signal"
+	"syscall"
+)
 
 func main() {
 	world.MM = world.NewMgrMgr()
-	world.MM.Pm.Run()
+	go world.MM.Run()
+	WaitSignal(world.MM.OnSystemSignal)
+}
+
+func WaitSignal(fn func(sig os.Signal) bool) {
+	ch := make(chan os.Signal, 1)
+	signal.Notify(ch, syscall.SIGHUP, syscall.SIGINT, syscall.SIGQUIT, syscall.SIGABRT, syscall.SIGTERM, syscall.SIGPIPE)
+	for sig := range ch {
+		if !fn(sig) {
+			close(ch)
+			break
+		}
+	}
 }
