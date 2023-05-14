@@ -1,8 +1,8 @@
 package player
 
 import (
-	"fmt"
 	"github.com/Memechen/myGame/function"
+	"github.com/Memechen/myGame/log"
 	"github.com/Memechen/myGame/network"
 	"github.com/Memechen/myGame/network/protocol/gen/player"
 	"github.com/golang/protobuf/proto"
@@ -36,5 +36,5 @@ func (p *Player) ResolveChatMsg(packet *network.Message) {
 	if err != nil {
 		return
 	}
-	fmt.Println(req.Msg.Content)
+	log.Logger.InfoF(req.Msg.Content)
 }

@@ -1,7 +1,7 @@
 package client
 
 import (
-	"fmt"
+	"github.com/Memechen/myGame/log"
 	"github.com/Memechen/myGame/network"
 	"github.com/Memechen/myGame/network/protocol/gen/player"
 	"github.com/golang/protobuf/proto"
@@ -29,7 +29,7 @@ func (c *Client) CreatePlayer(param *InputParam) {
 }
 
 func (c Client) OnCreatePlayerRsp(packet *network.ClientPacket) {
-	fmt.Println("恭喜你创建角色成功")
+	log.Logger.InfoF("恭喜你创建角色成功")
 }
 
 func (c *Client) Login(param *InputParam) {
@@ -55,7 +55,7 @@ func (c *Client) OnLoginResp(packet *network.ClientPacket) {
 		return
 	}
 
-	fmt.Println("登录成功")
+	log.Logger.InfoF("登录成功")
 }
 
 func (c *Client) AddFriend(param *InputParam) {
@@ -101,7 +101,7 @@ func (c *Client) DelFriend(param *InputParam) {
 }
 
 func (c *Client) OnDelFriendResp(packet *network.ClientPacket) {
-	fmt.Println("you have del friend success")
+	log.Logger.InfoF("you have del friend success")
 }
 
 func (c *Client) SendChatMsg(param *InputParam) {
@@ -134,5 +134,5 @@ func (c *Client) SendChatMsg(param *InputParam) {
 }
 
 func (c *Client) OnSendChatMsgResp(packet *network.ClientPacket) {
-	fmt.Println("send chat msg success")
+	log.Logger.InfoF("send chat msg success")
 }

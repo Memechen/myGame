@@ -1,7 +1,7 @@
 package network
 
 import (
-	"fmt"
+	"github.com/Memechen/myGame/log"
 	"net"
 )
 
@@ -21,12 +21,12 @@ func NewServer(address string) *Server {
 func (s *Server) Run() {
 	resolveTCPAddr, err := net.ResolveTCPAddr("tcp6", s.address)
 	if err != nil {
-		fmt.Println(err)
+		log.Logger.ErrorF("net.ResolveTCPAddr: %s has err, err: %v", s.address, err)
 		return
 	}
 	tcpListener, err := net.ListenTCP("tcp6", resolveTCPAddr)
 	if err != nil {
-		fmt.Println(err)
+		log.Logger.ErrorF("net.ListenTCP: %s has err, err: %v", resolveTCPAddr, err)
 		return
 	}
 	s.listener = tcpListener

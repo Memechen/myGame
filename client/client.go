@@ -1,7 +1,7 @@
 package client
 
 import (
-	"fmt"
+	"github.com/Memechen/myGame/log"
 	"github.com/Memechen/myGame/network"
 	"github.com/Memechen/myGame/network/protocol/gen/messageId"
 	"os"
@@ -35,7 +35,7 @@ func (c *Client) Run() {
 		for {
 			select {
 			case input := <-c.chInput:
-				fmt.Printf("[client run] cmd:%s, param:%v <<<\t \n", input.Command, input.Command)
+				log.Logger.InfoF("[client run] cmd:%s, param:%v <<<\t \n", input.Command, input.Command)
 				inputHandler := c.inputHandlers[input.Command]
 				if inputHandler != nil {
 					inputHandler(input)
@@ -55,7 +55,7 @@ func (c *Client) OnMessage(packet *network.ClientPacket) {
 }
 
 func (c *Client) OnSystemSignal(signal os.Signal) bool {
-	fmt.Printf("[Client] 收到信号 %v \n", signal)
+	log.Logger.InfoF("[Client] 收到信号 %v \n", signal)
 	tag := true
 	switch signal {
 	case syscall.SIGHUP:
@@ -63,7 +63,7 @@ func (c *Client) OnSystemSignal(signal os.Signal) bool {
 	case syscall.SIGPIPE:
 
 	default:
-		fmt.Println("[Client] 收到信号准备退出...")
+		log.Logger.InfoF("[Client] 收到信号准备退出...")
 		tag = false
 	}
 	return tag

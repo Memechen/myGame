@@ -2,7 +2,7 @@ package network
 
 import (
 	"encoding/binary"
-	"fmt"
+	"github.com/Memechen/myGame/log"
 	"net"
 	"time"
 )
@@ -38,10 +38,10 @@ func (s *Session) Read() {
 		}
 		message, err := s.packer.UnPack(s.conn)
 		if err != nil {
-			fmt.Println(err)
+			log.Logger.ErrorF("s.packer.UnPack has err, err: %v", err)
 			continue
 		}
-		fmt.Println("server receive message: ", string(message.Data))
+		log.Logger.InfoF("server receive message: ", string(message.Data))
 		s.MessageHandler(&SessionPacket{
 			Msg:  message,
 			Sess: s,
@@ -66,7 +66,7 @@ func (s *Session) Write() {
 func (s *Session) send(message *Message) {
 	err := s.conn.SetWriteDeadline(time.Now().Add(time.Second * 3))
 	if err != nil {
-		fmt.Println(err)
+		log.Logger.ErrorF("s.conn.SetWriteDeadline has err, err: %v", err)
 		return
 	}
 	bytes, err := s.packer.Pack(message)

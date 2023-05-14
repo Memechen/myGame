@@ -1,7 +1,7 @@
 package world
 
 import (
-	"fmt"
+	"github.com/Memechen/myGame/log"
 	"github.com/Memechen/myGame/network"
 	"github.com/Memechen/myGame/network/protocol/gen/messageId"
 	"github.com/Memechen/myGame/network/protocol/gen/player"
@@ -16,7 +16,7 @@ func (mm *MgrMgr) CreateUser(message *network.SessionPacket) {
 	if err != nil {
 		return
 	}
-	fmt.Println("[CreateUser] server", msg)
+	log.Logger.InfoF("[CreateUser] server", msg)
 
 	mm.SendMsg(message.Msg.ID, &player.SCCreateUser{}, message.Sess)
 }

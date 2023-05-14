@@ -2,7 +2,7 @@ package network
 
 import (
 	"encoding/binary"
-	"fmt"
+	"github.com/Memechen/myGame/log"
 	"github.com/Memechen/myGame/network/protocol/gen/messageId"
 	"io"
 	"net"
@@ -31,13 +31,13 @@ func (p *NormalPacker) Pack(message *Message) ([]byte, error) {
 func (p *NormalPacker) UnPack(reader io.Reader) (*Message, error) {
 	err := reader.(*net.TCPConn).SetReadDeadline(time.Now().Add(time.Second * 10))
 	if err != nil {
-		fmt.Println(err)
+		log.Logger.ErrorF("reader.(*net.TCPConn).SetReadDeadline has err, err: %v", err)
 		return nil, err
 	}
 	buffer := make([]byte, 8+8)
 	_, err = io.ReadFull(reader, buffer)
 	if err != nil {
-		fmt.Println(err)
+		log.Logger.ErrorF("io.ReadFull(reader, buffer) has err, err: %v", err)
 		return nil, err
 	}
 	totalLen := p.Order.Uint64(buffer[:8])
@@ -46,7 +46,7 @@ func (p *NormalPacker) UnPack(reader io.Reader) (*Message, error) {
 	dataBuffer := make([]byte, dataSize)
 	_, err = io.ReadFull(reader, dataBuffer)
 	if err != nil {
-		fmt.Println(err)
+		log.Logger.ErrorF("io.ReadFull(reader, dataBuffer) has err, err: %v", err)
 		return nil, err
 	}
 	m := &Message{

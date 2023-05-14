@@ -1,7 +1,7 @@
 package world
 
 import (
-	"fmt"
+	"github.com/Memechen/myGame/log"
 	"github.com/Memechen/myGame/manager"
 	"github.com/Memechen/myGame/network"
 	"github.com/Memechen/myGame/network/protocol/gen/messageId"
@@ -39,8 +39,8 @@ func (mm *MgrMgr) OnSessionPacket(packet *network.SessionPacket) {
 	}
 }
 
-func (mm MgrMgr) OnSystemSignal(signal os.Signal) bool {
-	fmt.Printf("[Client] 收到信号 %v \n", signal)
+func (mm *MgrMgr) OnSystemSignal(signal os.Signal) bool {
+	log.Logger.InfoF("[MgrMgr] 收到信号 %v \n", signal)
 	tag := true
 	switch signal {
 	case syscall.SIGHUP:
@@ -48,7 +48,7 @@ func (mm MgrMgr) OnSystemSignal(signal os.Signal) bool {
 	case syscall.SIGPIPE:
 
 	default:
-		fmt.Println("[Client] 收到信号准备退出...")
+		log.Logger.InfoF("[MgrMgr] 收到信号准备退出...")
 		tag = false
 	}
 	return tag

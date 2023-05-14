@@ -2,7 +2,7 @@ package client
 
 import (
 	"bufio"
-	"fmt"
+	"github.com/Memechen/myGame/log"
 	"os"
 	"strings"
 )
@@ -25,12 +25,12 @@ func (c *ClientConsole) Run() {
 	for {
 		readString, err := reader.ReadString('\n')
 		if err != nil {
-			fmt.Println("input err, check your input and try again")
+			log.Logger.ErrorF("input err, check your input and try again")
 			continue
 		}
 		split := strings.Split(readString, " ")
 		if len(split) == 0 {
-			fmt.Println("input err, check your input, your input is empty")
+			log.Logger.ErrorF("input err, check your input, your input is empty")
 			continue
 		}
 		in := &InputParam{
