@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/golang/protobuf v1.5.3
-	github.com/phuhao00/spoor v1.0.1
+	github.com/phuhao00/spoor v1.0.2
 	google.golang.org/protobuf v1.30.0
 )
 

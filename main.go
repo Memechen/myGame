@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/Memechen/myGame/log"
 	"github.com/Memechen/myGame/world"
 	"os"
 	"os/signal"
@@ -10,6 +11,7 @@ import (
 func main() {
 	world.MM = world.NewMgrMgr()
 	go world.MM.Run()
+	log.Logger.InfoF("server start !!")
 	WaitSignal(world.MM.OnSystemSignal)
 }
 
